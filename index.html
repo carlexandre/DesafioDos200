@@ -47,10 +47,15 @@
         import { getFirestore, doc, onSnapshot, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // ======================================================
-        // 1. CONFIGURAÇÃO (Firebase)
-        // ======================================================
-        const manualConfig = null; // COLE SUA CONFIGURAÇÃO AQUI SE FOR HOSPEDAR
+        // CONFIGURAÇÃO (Firebase)
+        const manualConfig = {
+            apiKey: "AIzaSyBNW9sTgUGu5qTXX43l8qSOtzaTlMDoTkI",
+            authDomain: "desafio-dos-200.firebaseapp.com",
+            projectId: "desafio-dos-200",
+            storageBucket: "desafio-dos-200.firebasestorage.app",
+            messagingSenderId: "17968820682",
+            appId: "1:17968820682:web:40c2393c687780de241f33"
+        };;
 
         let app, db, auth, currentUser;
         let unsubscribeDoc = null;
@@ -86,10 +91,7 @@
             }
         }
 
-        // ======================================================
-        // 2. ROTEADOR (Gerencia as "Páginas")
-        // ======================================================
-        
+        // ROTEADOR (Gerencia as "Páginas")
         window.addEventListener('hashchange', router);
         window.addEventListener('load', initFirebase);
 
@@ -120,10 +122,7 @@
             }
         }
 
-        // ======================================================
-        // 3. PÁGINAS (VIEWS)
-        // ======================================================
-
+        // PÁGINAS (VIEWS)
         function renderLogin(container) {
             container.innerHTML = `
                 <div class="page-enter min-h-screen flex items-center justify-center p-4">
@@ -252,9 +251,7 @@
             startLiveSync();
         }
 
-        // ======================================================
-        // 4. LÓGICA DO COFRE (Firestore) - CORRIGIDA
-        // ======================================================
+        // LÓGICA DO COFRE (Firestore)
         const TOTAL_NUMBERS = 200;
         const totalPossible = (TOTAL_NUMBERS * (TOTAL_NUMBERS + 1)) / 2;
         const appArtifactId = typeof __app_id !== 'undefined' ? __app_id : 'family-savings-app';
@@ -273,7 +270,6 @@
                 grid.appendChild(btn);
             }
 
-            // CORREÇÃO AQUI: Adicionado 'progress' para tornar o número de segmentos par (6)
             // artifacts > appId > public > data > board_XXX > progress
             const docRef = doc(db, 'artifacts', appArtifactId, 'public', 'data', `board_${currentChallengeId}`, 'progress');
             
